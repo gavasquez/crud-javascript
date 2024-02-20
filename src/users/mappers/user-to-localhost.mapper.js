@@ -12,7 +12,8 @@ export const userModelToLocalhost = ( user ) => {
     firstName,
     gender,
     isActive,
-    lastName
+    lastName,
+    id
   } = user;
 
   return {
@@ -21,7 +22,8 @@ export const userModelToLocalhost = ( user ) => {
     first_name: firstName,
     gender,
     isActive,
-    last_name: lastName
+    last_name: lastName,
+    id
   };
 
 };

@@ -11,5 +11,6 @@ export const loadUsersByPage = async ( page = 1 ) => {
   const {data} = await res.json();
 
   const users = data.map( userLike => localhostUserToModel( userLike ) );
+  console.log(users)
   return users;
 };

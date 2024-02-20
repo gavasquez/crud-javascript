@@ -8,27 +8,43 @@ const state = {
 
 const loadNextPage = async () => {
   const users = await loadUsersByPage( state.currenPage + 1 );
+  console.log(users.length)
   if ( users.length === 0 ) return;
   state.currenPage += 1;
   state.users = users;
 };
 
 const loadPreviousPage = async () => {
-  if ( state.currenPage <= 1 ) return;
+  if ( state.currenPage === 1 ) return;
   const users = await loadUsersByPage( state.currenPage - 1 );
   state.currenPage -= 1;
   state.users = users;
 };
 
+/**
+ * 
+ * @param {User} user 
+ */
 // TODO: Implementar
-const onUserChanged = () => {
-  throw new Error( 'No implementado' );
-
+const onUserChanged = ( updatedUser ) => {
+  state.users = state.users.map( user => {
+    if ( user.id === updatedUser.id ) {
+      return updatedUser;
+    }
+    return user;
+  } );
+  if ( state.users.length < 10 ) {
+    state.users.push( updatedUser );
+  }
 };
 
 const reloadPage = async () => {
-  throw new Error( 'No implementado' );
-
+  const users = await loadUsersByPage( state.currenPage );
+  if ( users.length === 0 ) {
+    await loadPreviousPage();
+    return;
+  };
+  state.users = users;
 };
 
 export default {
